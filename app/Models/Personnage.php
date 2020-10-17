@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Personnage extends Model
 {
     use HasFactory;
+
+    public function classes(){
+        return $this->hasOne('App\Models\Classe');
+    }
+    public function specialisations(){
+        return $this->hasOne('App\Models\Specialisation');
+    }
 }

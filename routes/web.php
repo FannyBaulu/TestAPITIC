@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PersonnageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::resource('/personnage', PersonnageController::class);
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('personnage.index');
 });

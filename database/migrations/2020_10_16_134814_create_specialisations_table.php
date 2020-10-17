@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersonnagesTable extends Migration
+class CreateSpecialisationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePersonnagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('personnages', function (Blueprint $table) {
+        Schema::create('specialisations', function (Blueprint $table) {
             $table->id();
-            $table->string('pseudo')->unique();
-            $table->string('race');
+            $table->string('nom');
             $table->foreignId('classe_id')->constrained();
-            $table->string('proprietaire')->unique();
-            $table->foreignId('specialisation_id')->constrained();
+            $table->string('icone');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreatePersonnagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personnages');
+        Schema::dropIfExists('specialisations');
     }
 }
