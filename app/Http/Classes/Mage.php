@@ -18,16 +18,39 @@ class Mage
     {
         $this->couleur= "#00caf3";
         $this->propriete= "sort préféré";
-        $this->methode= "murmure_de_magie()";
+        $this->methode= "Murmure de Magie";
         $this->points_de_vie= "100";
         $this->armure= "Tissu";
-        $this->specialisation=$personnage->specialisation_id->nom;
+        $this->specialisation=$personnage->specialisation->nom;
     }
 
     public function murmure_de_magie(){
         return "Je suis un mage avec la spécialisation".$this->specialisation.".";
     }
     public function details(){
-        return "Je suis un mage et mon".$this->propriete."est".$this->methode.".";
+        return "Je suis un mage et mon ".$this->propriete." est ".$this->methode.".";
+    }
+    /**
+     * Get the value of points_de_vie
+     */ 
+    public function getPoints_de_vie()
+    {
+        return $this->points_de_vie;
+    }
+
+    /**
+     * Get the value of couleur
+     */ 
+    public function getCouleur()
+    {
+        return $this->couleur;
+    }
+
+    /**
+     * Get the value of armure
+     */ 
+    public function getArmure()
+    {
+        return $this->armure;
     }
 }

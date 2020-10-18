@@ -16,7 +16,7 @@ class CreatePersonnagesTable extends Migration
         Schema::create('personnages', function (Blueprint $table) {
             $table->id();
             $table->string('pseudo')->unique();
-            $table->string('race');
+            $table->foreignId('race_id')->constrained();
             $table->foreignId('classe_id')->constrained();
             $table->string('proprietaire')->unique();
             $table->foreignId('specialisation_id')->constrained();

@@ -9,12 +9,13 @@
     <script src="{{asset('js/app.js') }}" defer></script>
 </head>
 <body>
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row mb-4">
         <h3 class="flex-grow-1 ">Game Info</h3>
         <p class="m-1">Se connecter</p>
         <p class="m-1">S'enregistrer</p>
     </div>
-  @yield('content')  
+  @yield('content')
+  @yield('script')  
 
 </body>
 </html>

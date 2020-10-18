@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
 use App\Models\Personnage;
+use App\Models\Race;
+use App\Models\Specialisation;
 use Illuminate\Http\Request;
 
 class PersonnageController extends Controller
@@ -14,7 +17,13 @@ class PersonnageController extends Controller
      */
     public function index()
     {
-        $personnages=Personnage::all();
+        $personnages=Personnage::with('race','classe')->get();
+        foreach($personnages as $personnage){
+            $nomClasse = $personnage->classe->nom;
+            $chemin="App\\Http\\Classes\\".$nomClasse;
+            $creationClasse= new $chemin($personnage);
+            $personnage->infoClasse=$creationClasse;
+        }
         return view('personnage.index',['personnages'=>$personnages]);
     }
 
@@ -25,9 +34,25 @@ class PersonnageController extends Controller
      */
     public function create()
     {
-        return view('personnage.create');
+        $classes=Classe::all();
+        $races=Race::all();
+
+        return view('personnage.create',[
+            "classes"=>$classes,
+            "races"=>$races,
+        ]);
     }
 
+    /**
+     * Get selectors value to adapt other selectors with database information.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function rechercheDynamique(Request $request){
+       $specialisations=Specialisation::where('classe_id',$request->classe)->get();
+       return ['specialisations'=>$specialisations];
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -36,8 +61,14 @@ class PersonnageController extends Controller
      */
     public function store(Request $request)
     {
-        //proprietaire : Auth::name
-        //
+        $personnage= new Personnage;
+        $personnage->pseudo=$request->pseudo;
+        $personnage->proprietaire=$request->proprietaire;
+        $personnage->race_id=$request->race;
+        $personnage->classe_id=$request->classe;
+        $personnage->specialisation_id=$request->specialisation;
+        $personnage->save();
+        return redirect()->route('personnage.index');
     }
 
     /**

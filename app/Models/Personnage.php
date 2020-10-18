@@ -9,10 +9,13 @@ class Personnage extends Model
 {
     use HasFactory;
 
-    public function classes(){
-        return $this->hasOne('App\Models\Classe');
+    public function race(){
+        return $this->belongsTo('App\Models\Race');
     }
-    public function specialisations(){
-        return $this->hasOne('App\Models\Specialisation');
+    public function classe(){
+        return $this->belongsTo('App\Models\Classe');
+    }
+    public function specialisation(){
+        return $this->belongsTo('App\Models\Specialisation');
     }
 }

@@ -19,3 +19,5 @@ Route::resource('/personnage', PersonnageController::class);
 Route::get('/', function () {
     return redirect()->route('personnage.index');
 });
+
+Route::get('/rechercheDynamique',[PersonnageController::class,'rechercheDynamique']);

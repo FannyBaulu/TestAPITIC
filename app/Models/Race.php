@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Specialisation extends Model
+class Race extends Model
 {
-    use HasFactory;
-
+    
     public function personnage(){
-        return $this->hasOne('App\Models\Specialisation');
+        return $this->hasOne('App\Models\Personnage');
     }
 }

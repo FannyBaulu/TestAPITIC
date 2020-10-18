@@ -18,16 +18,40 @@ class Chasseur
     {
         $this->couleur= "#086a00";
         $this->propriete= "coup préféré";
-        $this->methode= "hurlement_de_la_bete()";
+        $this->methode= "Hurlement de la Bête";
         $this->points_de_vie= "150";
         $this->armure= "Cuir";
-        $this->specialisation=$personnage->specialisation_id->nom;
+        $this->specialisation=$personnage->specialisation->nom;
     }
 
     public function hurlement_de_la_bete(){
         return "Je suis un chasseur avec la spécialisation".$this->specialisation.".";
     }
     public function details(){
-        return "Je suis un chasseur et mon".$this->propriete."est".$this->methode.".";
+        return "Je suis un chasseur et mon ".$this->propriete." est ".$this->methode.".";
+    }
+
+    /**
+     * Get the value of couleur
+     */ 
+    public function getCouleur()
+    {
+        return $this->couleur;
+    }
+
+    /**
+     * Get the value of points_de_vie
+     */ 
+    public function getPoints_de_vie()
+    {
+        return $this->points_de_vie;
+    }
+
+    /**
+     * Get the value of armure
+     */ 
+    public function getArmure()
+    {
+        return $this->armure;
     }
 }

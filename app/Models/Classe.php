@@ -9,8 +9,8 @@ class Classe extends Model
 {
     use HasFactory;
 
-    public function personnages(){
-        return $this->belongsTo('App\Models\Personnage');
+    public function personnage(){
+        return $this->hasOne('App\Models\Personnage');
     }
    
 }
