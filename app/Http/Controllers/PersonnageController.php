@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 class PersonnageController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des personnages de la guilde selon différent critères:
+     * Par défault, ils sont triés par id, sinon ils sont triés soit par classe soit par spécialisation.
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,8 +29,21 @@ class PersonnageController extends Controller
         return view('personnage.index',['personnages'=>$personnages]);
     }
 
+    public static function changeColor($nom,$personnage){
+        if($personnage->proprietaire == 'Tom'){
+            $tabNom = str_split ( $nom ,1);
+            foreach ($tabNom as $value) {
+                $str= "rgb(".rand(120,255).",".rand(120,255).",".rand(120,255).")";
+                echo "<b style='color:".$str."'>".$value."</b>";
+            }
+        }
+        else{
+            echo $nom;
+        }
+        
+    }
     /**
-     * Show the form for creating a new resource.
+     * Renvoie vers la formulaire de création de personnage récupérant les informations des tables "classes" et "races".
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,7 +59,8 @@ class PersonnageController extends Controller
     }
 
     /**
-     * Get selectors value to adapt other selectors with database information.
+     * Cette fonction récupère en requête la classe séléctionnée par l'utilisateur et va chercher les correspondances 
+     * en base de données pour les renvoyer en suite.
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -55,7 +70,7 @@ class PersonnageController extends Controller
        return ['specialisations'=>$specialisations];
     }
     /**
-     * Store a newly created resource in storage.
+     * Insert, en base de données, un nouveau personnage après validation des données reçues via la requête.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -64,7 +79,7 @@ class PersonnageController extends Controller
     {
         $request->validate([
             'pseudo' => 'required|unique:personnages,pseudo',
-            'proprietaire' => 'required|unique:personnages,proprietaire',
+            'proprietaire' => 'required',
             'race_id' => 'required|integer|between:1,4',
             'classe_id' => 'required|integer|between:1,4',
             'specialisation_id' => 'required|integer|between:1,12',
@@ -75,18 +90,7 @@ class PersonnageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Personnage  $personnage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Personnage $personnage)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Renvoie vers le formulaire de modification de personnage récupérant les informations des tables "classes","races" et "spécialisations".
      *
      * @param  \App\Models\Personnage  $personnage
      * @return \Illuminate\Http\Response
@@ -101,7 +105,7 @@ class PersonnageController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Modification d'un personnage en base de données après validation des données reçues via la requête.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Personnage  $personnage
@@ -126,7 +130,7 @@ class PersonnageController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Suppression d'un personnage en base de données.
      *
      * @param  \App\Models\Personnage  $personnage
      * @return \Illuminate\Http\Response

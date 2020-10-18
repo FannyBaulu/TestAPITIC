@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ClasseSeeder::class,
             SpecialisationSeeder::class,
             RaceSeeder::class,
+            PersonnageSeeder::class,
         ]);
     }
 }

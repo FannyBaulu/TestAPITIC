@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Personnage extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'pseudo','proprietaire','race_id','classe_id','specialisation_id'
     ];
 
+    
     public function race(){
         return $this->belongsTo('App\Models\Race');
     }
