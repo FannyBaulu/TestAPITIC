@@ -10,9 +10,8 @@
 </head>
 <body>
     <div class="d-flex flex-row mb-4">
-        <h3 class="flex-grow-1 ">Game Info</h3>
-        <p class="m-1">Se connecter</p>
-        <p class="m-1">S'enregistrer</p>
+        <h3 class="flex-grow-1 m-3">My Guild Info</h3>
+
     </div>
   @yield('content')
   @yield('script')  

@@ -16,7 +16,7 @@ class Pretre
        */
     public function __construct($personnage)
     {
-        $this->couleur= "#ffffff";
+        $this->couleur= "#e8ffff;color:black;";
         $this->propriete= "soin préféré";
         $this->methode= "Hymne Divin";
         $this->points_de_vie= "150";

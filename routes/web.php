@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-Route::resource('/personnage', PersonnageController::class);
 Route::get('/', function () {
     return redirect()->route('personnage.index');
 });
 
+
+Route::resource('/personnage', PersonnageController::class);
 Route::get('/rechercheDynamique',[PersonnageController::class,'rechercheDynamique']);
+Route::get('/triPar/{critere}',[PersonnageController::class,'index']);

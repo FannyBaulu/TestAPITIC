@@ -15,9 +15,10 @@ class PersonnageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($critere=null)
     {
-        $personnages=Personnage::with('race','classe')->get();
+
+        $personnages = Personnage::with('race','classe','specialisation')->orderBy($critere?:"id")->get();
         foreach($personnages as $personnage){
             $nomClasse = $personnage->classe->nom;
             $chemin="App\\Http\\Classes\\".$nomClasse;
@@ -61,12 +62,14 @@ class PersonnageController extends Controller
      */
     public function store(Request $request)
     {
-        $personnage= new Personnage;
-        $personnage->pseudo=$request->pseudo;
-        $personnage->proprietaire=$request->proprietaire;
-        $personnage->race_id=$request->race;
-        $personnage->classe_id=$request->classe;
-        $personnage->specialisation_id=$request->specialisation;
+        $request->validate([
+            'pseudo' => 'required|unique:personnages,pseudo',
+            'proprietaire' => 'required|unique:personnages,proprietaire',
+            'race_id' => 'required|integer|between:1,4',
+            'classe_id' => 'required|integer|between:1,4',
+            'specialisation_id' => 'required|integer|between:1,12',
+        ]);
+        $personnage= new Personnage($request->all());
         $personnage->save();
         return redirect()->route('personnage.index');
     }
@@ -90,7 +93,11 @@ class PersonnageController extends Controller
      */
     public function edit(Personnage $personnage)
     {
-        //
+        $classes=Classe::all();
+        $races=Race::all();
+        $specialisations=Specialisation::all();
+        return view('personnage.edit',['personnage'=>$personnage,"classes"=>$classes,
+        "races"=>$races,'specialisations'=>$specialisations]);
     }
 
     /**
@@ -102,7 +109,20 @@ class PersonnageController extends Controller
      */
     public function update(Request $request, Personnage $personnage)
     {
-        //
+        $request->validate([
+            'pseudo' => 'required',
+            'proprietaire' => 'required',
+            'race' => 'required|integer|between:1,4',
+            'classe' => 'required|integer|between:1,4',
+            'specialisation' => 'required|integer|between:1,12',
+        ]);
+        $personnage->pseudo=$request->pseudo;
+        $personnage->proprietaire=$request->proprietaire;
+        $personnage->race_id=$request->race;
+        $personnage->classe_id=$request->classe;
+        $personnage->specialisation_id=$request->specialisation;
+        $personnage->save();
+        return redirect()->route('personnage.index');
     }
 
     /**
@@ -113,6 +133,7 @@ class PersonnageController extends Controller
      */
     public function destroy(Personnage $personnage)
     {
-        //
+        $personnage->delete();
+        return redirect()->route('personnage.index');
     }
 }

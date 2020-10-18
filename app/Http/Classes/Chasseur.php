@@ -16,7 +16,7 @@ class Chasseur
        */
     public function __construct($personnage)
     {
-        $this->couleur= "#086a00";
+        $this->couleur= "#213e3b";
         $this->propriete= "coup préféré";
         $this->methode= "Hurlement de la Bête";
         $this->points_de_vie= "150";
